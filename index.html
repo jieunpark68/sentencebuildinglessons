@@ -50,6 +50,9 @@ h2{font-family:var(--display);font-weight:800;font-size:26px;margin:0;color:var(
 .blank{display:inline-block;min-width:3.4em;text-align:center;border-bottom:4px solid var(--navy);padding:0 8px;color:var(--navy)}
 .blank.empty{color:transparent}
 .blank.right{color:var(--good);border-color:var(--good)}
+.sentenceQ .pron{color:var(--navy);background:#d9f1fc;border-bottom:4px solid var(--sea);padding:0 4px}
+.refQ{font-size:clamp(20px,4.2vw,26px);font-weight:700;margin:4px 0 0}
+.refQ .pron{color:var(--navy);background:#d9f1fc;padding:0 6px;border-radius:6px}
 .dirLine{margin:0;font-size:19px;font-weight:700;color:var(--navy)}
 .feedback{font-size:19px;font-weight:700;border-radius:14px;padding:12px 16px;margin:0;display:flex;flex-direction:column;gap:6px}
 .feedback:empty{display:none}
@@ -268,7 +271,7 @@ const M3_ITEMS=[
 ];
 const NINTRO="This practice is just like the whole sentence test. First, put the mixed-up pieces in order. Next, find the missing word. Last, put two sentences together to make one sentence. Listen to the directions on each one.";
 /* ================= SESSIONS 16-17: like the whole test, 20 questions =================
-   8 sentence building, 4 pronouns, 8 sentence combining. Combining uses chunk pieces (who/that is its own piece), like the test. */
+   8 sentence building, 4 pronouns (1 fill in the blank, 2 "stand for", 1 replace the repeated noun; no animals), 8 sentence combining. Combining uses chunk pieces (who/that is its own piece), like the test. */
 const N1_ITEMS=[
   {"k": "b", "pieces": ["my sister", "fed", "the fish"]},
   {"k": "b", "pieces": ["Grandpa", "fixed", "the fence"]},
@@ -278,10 +281,10 @@ const N1_ITEMS=[
   {"k": "b", "pieces": ["Mr. Kim,", "who drives a taxi,", "waved at us"]},
   {"k": "b", "pieces": ["the sandwich", "that Dad packed", "had cheese in it"]},
   {"k": "b", "pieces": ["the big box,", "which was on the porch,", "had a new lamp inside"]},
-  {"k": "p", "q": "Izzy saw deep scratches on the fence. ___ took a picture of them.", "choices": ["He", "She", "They", "It"], "answer": "She", "t": "s", "img": A_ITEMS[8].img},
-  {"k": "p", "q": "The cub was hungry, so ___ knocked over the trash can.", "choices": ["he", "they", "it", "we"], "answer": "it", "t": "s", "img": A_ITEMS[15].img},
-  {"k": "p", "q": "The two officers carried a big cage into the woods. ___ set it down on the grass.", "choices": ["She", "It", "They", "He"], "answer": "They", "t": "s", "img": B_ITEMS[18].img},
-  {"k": "p", "q": "Izzy said, “Officer Pam and I found the same scratches. ___ think it was the same animal!”", "choices": ["They", "We", "She", "He"], "answer": "We", "t": "s", "img": B_ITEMS[9].img},
+  {"k": "p", "q": "Officer Wentworth gave Sue a phone number. ___ put it in her pocket.", "choices": ["He", "She", "They", "It"], "answer": "She", "t": "s", "img": A_ITEMS[9].img},
+  {"k": "p", "ref": "he", "q": "Sue called the police station, and Officer Wentworth answered. He said help was on the way.", "choices": ["Officer Wentworth", "Sue", "the police station", "help"], "answer": "Officer Wentworth", "t": "r", "img": B_ITEMS[15].img},
+  {"k": "p", "ref": "it", "q": "Izzy brought her camera to the fence. It took clear pictures of the scratches.", "choices": ["the camera", "the fence", "Izzy", "the scratches"], "answer": "the camera", "t": "r", "img": B_ITEMS[11].img},
+  {"k": "p", "rep": "The officers", "q": "The officers carried a big trap. The officers walked into the woods.", "choices": ["They", "He", "It", "We"], "answer": "They", "t": "x", "img": A_ITEMS[18].img},
   {"k": "c", "first": "Eli has a bag.", "second": "The bag is green.", "pieces": ["Eli", "has a bag", "that", "is green"]},
   {"k": "c", "first": "Zoe has a cousin.", "second": "The cousin lives in Texas.", "pieces": ["Zoe", "has a cousin", "who", "lives in Texas"]},
   {"k": "c", "first": "Lucas found a shell.", "second": "The shell was pink.", "pieces": ["Lucas", "found a shell", "that", "was pink"]},
@@ -300,10 +303,10 @@ const N2_ITEMS=[
   {"k": "b", "pieces": ["Ms. Hall,", "who teaches music,", "played the piano"]},
   {"k": "b", "pieces": ["Tom", "found the key", "that was under the mat"]},
   {"k": "b", "pieces": ["the old truck,", "which was very slow,", "stopped at the corner"]},
-  {"k": "p", "q": "The big bear wanted to find bugs, so ___ dug in the dirt with its claws.", "choices": ["he", "it", "they", "we"], "answer": "it", "t": "s", "img": B_ITEMS[3].img},
-  {"k": "p", "q": "Sue held the paper with the phone number. ___ called Officer Pam right away.", "choices": ["He", "They", "She", "It"], "answer": "She", "t": "s", "img": B_ITEMS[12].img},
-  {"k": "p", "q": "The fish swam up the cold river. ___ jumped out of the water.", "choices": ["It", "They", "He", "We"], "answer": "They", "t": "s", "img": B_ITEMS[5].img},
-  {"k": "p", "q": "Joey stood near his house and listened. ___ heard the growl again.", "choices": ["She", "They", "It", "He"], "answer": "He", "t": "s", "img": A_ITEMS[0].img},
+  {"k": "p", "q": "Kristen saw a shadow behind the shed. ___ ran to get her brother.", "choices": ["He", "She", "They", "It"], "answer": "She", "t": "s", "img": A_ITEMS[16].img},
+  {"k": "p", "ref": "we", "q": "Izzy and I heard the sirens, so we raced through the yard.", "choices": ["Izzy and I", "Izzy", "the sirens", "the yard"], "answer": "Izzy and I", "t": "r", "img": A_ITEMS[4].img},
+  {"k": "p", "ref": "they", "q": "Officer Pam talked to the neighbors on Orange Street, and they promised to stay inside.", "choices": ["the neighbors", "Officer Pam", "Orange Street", "the officers"], "answer": "the neighbors", "t": "r", "img": A_ITEMS[14].img},
+  {"k": "p", "rep": "the pictures", "q": "Izzy took some pictures. Officer Pam looked at the pictures.", "choices": ["it", "them", "they", "her"], "answer": "them", "t": "x", "img": B_ITEMS[19].img},
   {"k": "c", "first": "Maya has a coat.", "second": "The coat is purple.", "pieces": ["Maya", "has a coat", "that", "is purple"]},
   {"k": "c", "first": "Noah called a friend.", "second": "The friend was sick.", "pieces": ["Noah", "called a friend", "who", "was sick"]},
   {"k": "c", "first": "Grace found a rock.", "second": "The rock looked like a heart.", "pieces": ["Grace", "found a rock", "that", "looked like a heart"]},
@@ -481,6 +484,16 @@ function hintFor(it,p,ord){
 /* ================= PRONOUN ITEMS ================= */
 let pick=null, wrong=[];
 const PDIR="Tap the word that fits in the blank. Then tap Check.";
+const RDIR="Who or what does the blue word stand for? Tap the answer. Then tap Check.";
+const XDIR="Which word can take the place of the blue words? Tap it. Then tap Check.";
+const pDir=it=>it.ref?RDIR:it.rep?XDIR:PDIR;
+/* "Stand for" items mark the first match of the pronoun; "replace" items mark the last match of the repeated noun. */
+function markSpan(it){const ph=it.ref||it.rep;const re=new RegExp("\\b"+ph.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"\\b","gi");let m,hit=null;
+  while((m=re.exec(it.q))){hit=m;if(it.ref)break}return hit?[hit.index,hit.index+hit[0].length]:[0,0]}
+function markHTML(it){const [x,y]=markSpan(it);return esc(it.q.slice(0,x))+`<span class="pron">${esc(it.q.slice(x,y))}</span>`+esc(it.q.slice(y))}
+function askText(it){return it.ref?`Who or what does ${it.ref} stand for?`:`Which word can take the place of ${it.rep}?`}
+function swapped(it){const [x,y]=markSpan(it);const before=it.q.slice(0,x);const w=/^\s*$|[.!?]\s*$/.test(before)?it.answer.charAt(0).toUpperCase()+it.answer.slice(1):it.answer.toLowerCase();return before+w+it.q.slice(y)}
+function answerText(it){return it.ref?`${it.ref.charAt(0).toUpperCase()+it.ref.slice(1)} stands for ${it.answer}.`:it.rep?swapped(it):filledQ(it,it.answer)}
 function loadP(){pick=null;wrong=[];tries=0;solved=false;renderP()}
 function filledQ(it,w){return it.q.replace("___",w)}
 function renderP(fb){
@@ -489,9 +502,10 @@ function renderP(fb){
   scr.innerHTML=`<section class="card">
     <div class="meta"><span class="count">Sentence ${i+1} of ${total}</span><span style="display:flex;align-items:center;gap:10px"><span class="stars" aria-label="${score} right on the first try">${"★".repeat(score)}</span><button class="btn small" id="early">Finish early</button></span></div>
     <div id="earlyBox" hidden class="feedback try" style="display:none"><span>Do you want to stop now?</span><span class="actions"><button class="btn go" id="earlyYes">Yes, finish now</button><button class="btn" id="earlyNo">Keep going</button></span></div>
-    <div class="dirRow"><button class="spk spkBig" id="readDir" aria-label="Hear the directions">🔊</button><p class="dirLine">${PDIR}</p></div>
+    <div class="dirRow"><button class="spk spkBig" id="readDir" aria-label="Hear the directions">🔊</button><p class="dirLine">${pDir(it)}</p></div>
     ${it.img?`<figure class="qpic"><img src="${it.img}" alt=""></figure>`:""}
-    <div class="qrow"><button class="spk spkBig" id="readQ" aria-label="Read the sentence">🔊</button><p class="sentenceQ">${esc(parts[0])}<span class="blank ${w?"":"empty"} ${solved?"right":""}">${w?esc(w):"____"}</span>${esc(parts[1]||"")}</p></div>
+    <div class="qrow"><button class="spk spkBig" id="readQ" aria-label="Read the sentence">🔊</button><p class="sentenceQ">${it.ref||it.rep?markHTML(it):`${esc(parts[0])}<span class="blank ${w?"":"empty"} ${solved?"right":""}">${w?esc(w):"____"}</span>${esc(parts[1]||"")}`}</p></div>
+    ${it.ref||it.rep?`<p class="refQ">${it.ref?"Who or what does":"Which word can take the place of"} <span class="pron">${esc(it.ref||it.rep)}</span>${it.ref?" stand for":""}?</p>`:""}
     <div class="choices">${it.choices.map((c,k)=>`<span class="pieceWrap"><button class="choice ${solved&&c===it.answer?"right":""} ${wrong.includes(k)?"wrongPick":""} ${glow===c?"glow":""}" id="ch${k}" aria-pressed="${!solved&&pick===k}" ${solved||wrong.includes(k)?"disabled":""}>${esc(c)}</button><button class="spk" id="sp${k}" aria-label="Hear ${esc(c)}">🔊</button></span>`).join("")}</div>
     <div class="feedback ${fb?fb.cls:""}" id="fb">${fb?fb.html:""}</div>
     <div class="actions">
@@ -500,26 +514,28 @@ function renderP(fb){
     </div>
   </section>`;
   it.choices.forEach((c,k)=>{on("ch"+k,()=>{pick=k;renderP(fb)});on("sp"+k,()=>speak(c))});
-  on("readQ",()=>speak(solved?filledQ(it,it.answer):pick===null?it.q.replace("___","blank"):filledQ(it,it.choices[pick])));
-  on("readDir",()=>speak(PDIR));
+  on("readQ",()=>speak(it.ref||it.rep?[it.q,askText(it)]:solved?filledQ(it,it.answer):pick===null?it.q.replace("___","blank"):filledQ(it,it.choices[pick])));
+  on("readDir",()=>speak(pDir(it)));
   on("hearHint",()=>speak(fb.hintParts));
   on("early",()=>{const e=$("#earlyBox");e.hidden=false;e.style.display="flex"});
   on("earlyNo",()=>{const e=$("#earlyBox");e.hidden=true;e.style.display="none"});
   on("earlyYes",()=>done(true));
   on("check",checkP);
   on("next",()=>{if(i<list.length-1){i++;load()}else done()});
-  on("hearAns",()=>speak(filledQ(it,it.answer)));
+  on("hearAns",()=>speak(answerText(it)));
 }
 const P_HINT={s:"Who or what is doing the action? Look back at the sentence before the blank.",
   o:"Who or what is getting the action? Look back to see who the sentence is talking about.",
-  p:"Whose is it? Look for who it belongs to."};
+  p:"Whose is it? Look for who it belongs to.",
+  r:"Read the sentence again. Who or what is the blue word talking about?",
+  x:"Read both sentences. Is the blue part one person, one thing, or more than one?"};
 function checkP(){
   const it=list[i];
   if(it.choices[pick]===it.answer){
     solved=true;if(tries===0)score++;
     const msg=tries===0?"You got it on the first try!":"You did it! Great job sticking with it.";
-    renderP({cls:"good",html:`<span>✓ ${msg}</span><span class="answerLine">${esc(filledQ(it,it.answer))}</span>`});
-    speak([msg,filledQ(it,it.answer)]);return;
+    renderP({cls:"good",html:`<span>✓ ${msg}</span><span class="answerLine">${esc(answerText(it))}</span>`});
+    speak([msg,answerText(it)]);return;
   }
   tries++;wrong.push(pick);pick=null;
   const hint=P_HINT[it.t], extra=tries>=2?" The glowing word is the one that fits.":"";
